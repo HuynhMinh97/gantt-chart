@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 export interface TableUser{
   id:number;
@@ -31,6 +32,8 @@ export class GanttChartComponent implements OnInit{
   constructor(private elementRef:ElementRef){
 
   }
+  faCoffee = faPlusCircle;
+
   today=new Date();
   ngOnInit(): void {
     
@@ -151,13 +154,20 @@ onClick(event:any) {
   console.log(event.target.innerText,event);
 }
 
+isShowPlus:boolean=false;
 handleHover(value:any){
   value.target.setAttribute('style','cursor: pointer;background-color:rgba(108,117,125,0.3)');
+  value.target.children[0].children[0].setAttribute('style','display:block')
+
+  this.isShowPlus=true;
 }
 handleHoverOut(value:any){
   value.target.setAttribute('style','background-color:none');
+  value.target.children[0].children[0].setAttribute('style','display:none')
+  this.isShowPlus=false;
+  console.log(value)
 }
-////////test
+////test
 
 
 // name:string='';

@@ -14,7 +14,7 @@ import {CardComponent} from './card.component';
 import { LearnPipeComponent } from './learn-pipe/learn-pipe.component';
 import { RoundPipe } from './round.pipe';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     ParentComponent,
     CardComponent,
     LearnPipeComponent,
-    RoundPipe
+    RoundPipe,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +34,8 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     MatGridListModule,
     MatTableModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

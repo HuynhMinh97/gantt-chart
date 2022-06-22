@@ -122,7 +122,7 @@
 
 .table-work-cell{
     width: 100%;
-    cursor: pointer;
+    /* cursor: pointer; */
     box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
     border-radius: 4px;
     background: #348fe4;
@@ -132,7 +132,9 @@
     color: #fff;
     white-space:nowrap;
 }
-
+fa-icon{
+    position: fixed;
+}
 /* test */
 .gantt{
     width: 100%; 

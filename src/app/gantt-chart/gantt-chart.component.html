@@ -1,3 +1,4 @@
+
 <div class="button-header">
     <div class="button-switch">
         <button type="button" class="btn btn-primary">Days</button>
@@ -25,12 +26,14 @@
             </thead>
             <tbody>
               <tr (mouseenter) ="handleHover($event)" (mouseleave) ="handleHoverOut($event)" *ngFor="let ele of dataSource,let i=index" class="cell-title cell-title-{{i}}">
-                <th class="text-center table-cell-left"  id="project-left-{{i}}" contenteditable>{{ele.nameProject}}</th>
+                <th class="text-center table-cell-left" id="project-left-{{i}}" contenteditable>{{ele.nameProject}} <fa-icon  id="icon-plus-{{i}}" style="display: none;" [icon]="faCoffee"></fa-icon></th>
+                
+
                 <td class="text-center table-cell-left" id="name-left-{{i}}" contenteditable>{{ele.nameEmpolyee}}</td>
                 <td class="text-center table-cell-left" id="datefrom-left-{{i}}" contenteditable>{{ele.dateFrom|date :'MM/dd/yyyy'}}</td>
                 <td class="text-center table-cell-left" id="dateto-left-{{i}}" contenteditable>{{ele.dateTo|date :'MM/dd/yyyy'}}</td>
                 <td class="text-center table-cell-left" id="capacity-left-{{i}}" contenteditable>{{ele.capacity}}</td>
-        
+         
               </tr>
               
             </tbody>
@@ -58,5 +61,4 @@
     </div>
     
   </div>
-
 
