@@ -1,0 +1,4 @@
+<p>list-person works!</p>
+<ng-container  *ngFor="let person of listPerson">
+    <app-person (delete)="handleDelete($event)" [nameUser]="person.name" [age]="person.age" ></app-person>
+</ng-container>

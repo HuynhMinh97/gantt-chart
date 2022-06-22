@@ -1,0 +1,62 @@
+<div class="button-header">
+    <div class="button-switch">
+        <button type="button" class="btn btn-primary">Days</button>
+        <button type="button" class="btn btn-secondary">Weeks</button>
+        <button type="button" class="btn btn-success">Months</button>
+    </div>
+    <div class="button-change">
+        <button class="button button-prev">Prev</button><a href=""> Today </a><button class="button button-next">Next</button>
+
+    </div>
+
+</div>
+<div class="gantt-container">
+    <div class="col-4 scroll-bar">
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-title-left">
+                <th scope="col">Project Name</th>
+                <th scope="col">Name Employee</th>
+                <th scope="col">Date from</th>
+                <th scope="col">Date to</th>
+                <th scope="col">Capacity</th>
+        
+              </tr>
+            </thead>
+            <tbody>
+              <tr (mouseenter) ="handleHover($event)" (mouseleave) ="handleHoverOut($event)" *ngFor="let ele of dataSource,let i=index" class="cell-title cell-title-{{i}}">
+                <th class="text-center table-cell-left"  id="project-left-{{i}}" contenteditable>{{ele.nameProject}}</th>
+                <td class="text-center table-cell-left" id="name-left-{{i}}" contenteditable>{{ele.nameEmpolyee}}</td>
+                <td class="text-center table-cell-left" id="datefrom-left-{{i}}" contenteditable>{{ele.dateFrom|date :'MM/dd/yyyy'}}</td>
+                <td class="text-center table-cell-left" id="dateto-left-{{i}}" contenteditable>{{ele.dateTo|date :'MM/dd/yyyy'}}</td>
+                <td class="text-center table-cell-left" id="capacity-left-{{i}}" contenteditable>{{ele.capacity}}</td>
+        
+              </tr>
+              
+            </tbody>
+          </table>
+    </div>
+    <div class="col-8 scroll-bar  ">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-title-year">
+                    <th colspan="12" >2022</th>
+                </tr>
+              <tr class="table-title-month">
+                <th #cellMonth  *ngFor="let month of months;let indexOfelement=index;"  class="cell-month-title " id="cell-month-title-{{indexOfelement}}" scope="col">{{month}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let work of dataSource;let indexOfelement=index;" class="table-cell-right">
+                <th  colspan="12" class="table-row" >
+                    <div class="table-work-cell" id="table-work-{{indexOfelement}}"  ><p class="table-text">{{work.capacity}}</p></div>
+                </th>
+               
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    
+  </div>
+
+
