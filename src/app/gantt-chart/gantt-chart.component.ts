@@ -15,12 +15,13 @@ export interface TableUser{
 };
 
 const USER_DATA:TableUser[]=[
-  {id:1.1,nameProject:"Pj A",nameEmpolyee:"A",dateFrom:1655312400000, dateTo: 1655571600000,capacity:20},
-  {id:1.2,nameProject:"Pj A",nameEmpolyee:"B",dateFrom:1655398800000, dateTo: 
+  {id:1,nameProject:"Pj A",nameEmpolyee:"A",dateFrom:1655312400000, dateTo: 1655571600000,capacity:20},
+  {id:2,nameProject:"Pj A",nameEmpolyee:"B",dateFrom:1655398800000, dateTo: 
   1658250000000,capacity:20},
-  {id:1.3,nameProject:"Pj A",nameEmpolyee:"C",dateFrom:1655226000000, dateTo: 1655485200000,capacity:20},
-  {id:1.4,nameProject:"Pj A",nameEmpolyee:"D",dateFrom:1655312400000, dateTo: 1655571600000,capacity:20},
-  {id:1.4,nameProject:"Pj A",nameEmpolyee:"E",dateFrom:1650042000000, dateTo: 1655571600000,capacity:40},
+  {id:3,nameProject:"Pj A",nameEmpolyee:"C",dateFrom:1655226000000, dateTo: 1655485200000,capacity:20},
+  {id:4,nameProject:"Pj A",nameEmpolyee:"D",dateFrom:1655312400000, dateTo: 1655571600000,capacity:20},
+  {id:5,nameProject:"Pj A",nameEmpolyee:"E",dateFrom:1650042000000, dateTo: 1655571600000,capacity:40},
+  // {id:6,nameProject:"Pj A",nameEmpolyee:"E",dateFrom:1650042000000, dateTo: 1655571600000,capacity:40},
 
 ]
 
@@ -40,10 +41,6 @@ export class GanttChartComponent implements OnInit{
   today=new Date();
   ngOnInit(): void {
     
-    window.onload=()=>{
-      console.log("ONLOAD");
-      
-    };
     
     document.querySelector(`.table-work-${0}`)?.setAttribute('style','background-color:red;width:50px');
     
@@ -55,7 +52,6 @@ export class GanttChartComponent implements OnInit{
   changeDateFrom(value:any,index:number){
     this.dataSource[index].dateFrom=new Date(value).getTime();
     this.dataSource[index].dateLeft=(this.dataSource[index].dateTo-new Date(value).getTime())/(1000 * 3600 * 24);
-    console.log(this.dataSource[index].dateLeft)
 
   }
   changeDateTo(value:any,index:number){
@@ -73,6 +69,10 @@ export class GanttChartComponent implements OnInit{
     this.dataSource[index].dateTo=event.target.valueAsDate.getTime();
     this.dataSource[index].dateLeft=(this.dataSource[index].dateTo-this.dataSource[index].dateFrom)/(1000 * 3600 * 24);
   }
+  handlelog(value:any){
+    console.log(value
+      )
+  }
 
   rs:TableUser[]=[];
   displayedColumns: string[] = ['name project', 'name empolyee', 'date from', 'date to','capacity'];
@@ -80,7 +80,6 @@ export class GanttChartComponent implements OnInit{
     let dateObjFrom=new Date(ele.dateFrom);
     let dateObjTo=new Date(ele.dateTo);
     ele.dateFromShow = new Date(ele.dateFrom); 
-    console.log(typeof ele.dateFromShow)
     ele.dateToShow = new Date(ele.dateTo);
     // ele.dateFrom=newdateFrom;
     // ele.dateTo=newdateTo;
@@ -88,6 +87,14 @@ export class GanttChartComponent implements OnInit{
     ele.dateLeft=(ele.dateTo-ele.dateFrom)/(1000 * 3600 * 24)
     return ele
   })
+  handleShowMonth(){
+    let month=new Date().getMonth();
+    let offsetLef:number=document.getElementById(`cell-month-title-${month}`)?.offsetLeft!;
+    if(document.getElementById('scroll-bar')){
+      document.getElementById('scroll-bar')!.scrollLeft=offsetLef ;
+    }
+    // console.log(document.getElementById('scroll-bar')?.scrollLeft!)
+  }
   dataSource = USER_DATA;
 
   months=["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -102,9 +109,9 @@ export class GanttChartComponent implements OnInit{
   //   console.log(12)
   // }
   // dateText:any;
-  handleChange(param:any){
-    console.log(typeof param.target.value);
-  }
+  // handleChange(param:any){
+  //   console.log(typeof param.target.value);
+  // }
 
   getNumberOfDays(year:number, month:number) {
     var isLeap = ((year % 4) == 0 && ((year % 100) != 0 || (year % 400) == 0));
@@ -169,14 +176,14 @@ randColor(length:number, ...ranges:any[]) {
 }
 getMonth(date:string){
   let m=date.slice(0,date.indexOf('/'))
-  console.log(m)
+  // console.log(m)
 }
 
 ngAfterViewInit() {
   this.elementRef.nativeElement.querySelector('#datefrom-left-0')?.addEventListener('blur', this.onClick.bind(this));
 }
 onClick(event:any) {
-  console.log(event.target.innerText,event);
+  
 }
 
 // isShowPlus:boolean=false;
@@ -185,16 +192,30 @@ handleHover(value:any){
   let ele=value.target.children[0];
   let x=ele.offsetLeft+ele.offsetWidth;
   let y=ele.page+ele.offsetHeight;
-  console.log(value.target.children[0].target);
-  // value.target.children[0].children[0].setAttribute('style',`display:block;position:fixed; left:${x-8}px;top:${y}px`)
+  // console.log(value.target.children[0].target);
+  value.target.children[0].children[1].setAttribute('style',`position: fixed;margin-left: 8px;margin-top: 32px;`)
 
   // this.isShowPlus=true;
 }
 handleHoverOut(value:any){
   value.target.setAttribute('style','background-color:none');
-  // value.target.children[0].children[0].setAttribute('style','display:none')
+  value.target.children[0].children[1].setAttribute('style','display:none')
   // this.isShowPlus=false;
-  console.log(value)
+}
+handleClickIcon(number:number){
+  let dateFrom=new Date().getTime();
+  let dateTo=new Date().getTime()+24*60*60*60;
+  let dateFromShow=new Date();
+  let dateToShow=new Date(dateTo);
+  let dateLeft=(dateTo-dateFrom)/(1000 * 3600 * 24);
+  let newUser={nameProject:'',nameEmpolyee:'',id:this.dataSource.length+1,dateFrom,dateTo,capacity:0,dateFromShow ,dateToShow,dateLeft}
+  this.dataSource.splice(number+1,0,newUser);
+  console.log(number);
+}
+handleChangeCapacity(value:any,index:number){
+  if(parseInt(value.target.innerText))
+  this.dataSource[index].capacity=parseInt(value.target.innerText);
+
 }
 ////test
 

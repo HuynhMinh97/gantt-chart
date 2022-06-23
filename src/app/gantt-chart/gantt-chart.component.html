@@ -5,8 +5,11 @@
         <button type="button" class="btn btn-secondary">Weeks</button>
         <button type="button" class="btn btn-success">Months</button>
     </div>
+    <div class="">
+      Thời gian từ :
+    </div>
     <div class="button-change">
-        <button class="button button-prev">Prev</button><a href=""> Today </a><button class="button button-next">Next</button>
+        <button class="button button-prev">Prev</button><button (click)="handleShowMonth()">This month</button><button class="button button-next">Next</button>
 
     </div>
 
@@ -26,33 +29,31 @@
             </thead>
             <tbody>
               <tr (mouseenter) ="handleHover($event)" (mouseleave) ="handleHoverOut($event)" *ngFor="let ele of dataSource,let i=index" class="cell-title cell-title-{{i}}">
-                <th class="text-center table-cell-left" id="project-left-{{i}}" contenteditable><input type="text"  [(ngModel)]="ele.nameProject"><fa-icon  id="icon-plus-{{i}}" style="display:none"  [icon]="faCoffee"></fa-icon></th>
-                
-
-                <td class="text-center table-cell-left" id="name-left-{{i}}" contenteditable><input type="text"  [(ngModel)]="ele.nameEmpolyee"></td>
-                <td class="text-center table-cell-left" id="datefrom-left-{{i}}" contenteditable><input [valueAsDate]="ele.dateFromShow" (change)="updateDateFrom($event,i)" type="date" id="date" /></td>
-                <td class="text-center table-cell-left" id="dateto-left-{{i}}" contenteditable><input [valueAsDate]="ele.dateToShow" (change)="updateDateTo($event,i)" type="date" id="date" /></td>
-                <td class="text-center table-cell-left" id="capacity-left-{{i}}" contenteditable><input type="text"  [(ngModel)]="ele.capacity" ></td>
+                <th class="text-center table-cell-left" id="project-left-{{i}}" ><input type="text"  [(ngModel)]="ele.nameProject"><fa-icon (click)="handleClickIcon(i)" id="icon-plus-{{i}}" style="display:none"  [icon]="faCoffee"></fa-icon></th>
+                <td class="text-center table-cell-left" id="name-left-{{i}}" ><input type="text"  [(ngModel)]="ele.nameEmpolyee"></td>
+                <td class="text-center table-cell-left" id="datefrom-left-{{i}}" ><input [valueAsDate]="ele.dateFromShow" (change)="updateDateFrom($event,i)" type="date" id="date" /></td>
+                <td class="text-center table-cell-left" id="dateto-left-{{i}}" ><input [valueAsDate]="ele.dateToShow" (change)="updateDateTo($event,i)" type="date" id="date" /></td>
+                <td class="text-center table-cell-left" id="capacity-left-{{i}}" ><input type="text"  [(ngModel)]="ele.capacity" ></td>
          
               </tr>
               
             </tbody>
           </table>
     </div>
-    <div class="col-8 scroll-bar  ">
+    <div id="scroll-bar" class="col-8 scroll-bar  " (click)="handlelog($event)">
         <table class="table table-bordered">
             <thead>
                 <tr class="table-title-year">
                     <th colspan="12" >2022</th>
                 </tr>
               <tr class="table-title-month">
-                <th #cellMonth  *ngFor="let month of months;let indexOfelement=index;"  class="cell-month-title " id="cell-month-title-{{indexOfelement}}" scope="col">{{month}}</th>
+                <th #cellMonth  *ngFor="let month of months;let indexOfelement=index;"  class="cell-month-title " id="cell-month-title-{{indexOfelement}}"  scope="col">{{month}}</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let work of dataSource;let indexOfelement=index;" class="table-cell-right">
                 <th  colspan="12" class="table-row" >
-                    <div class="table-work-cell" id="table-work-{{indexOfelement}}"  ><p class="table-text">{{work.capacity}}</p></div>
+                    <div class="table-work-cell" id="table-work-{{indexOfelement}}"  ><p class="table-text" contenteditable (keyup)="handleChangeCapacity($event,indexOfelement)">{{work.capacity}}</p></div>
                 </th>
                
               </tr>
