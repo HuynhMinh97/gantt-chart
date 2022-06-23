@@ -26,13 +26,13 @@
             </thead>
             <tbody>
               <tr (mouseenter) ="handleHover($event)" (mouseleave) ="handleHoverOut($event)" *ngFor="let ele of dataSource,let i=index" class="cell-title cell-title-{{i}}">
-                <th class="text-center table-cell-left" id="project-left-{{i}}" contenteditable>{{ele.nameProject}} <fa-icon  id="icon-plus-{{i}}" style="display: none;" [icon]="faCoffee"></fa-icon></th>
+                <th class="text-center table-cell-left" id="project-left-{{i}}" contenteditable><input type="text"  [(ngModel)]="ele.nameProject"><fa-icon  id="icon-plus-{{i}}" style="display:none"  [icon]="faCoffee"></fa-icon></th>
                 
 
-                <td class="text-center table-cell-left" id="name-left-{{i}}" contenteditable>{{ele.nameEmpolyee}}</td>
-                <td class="text-center table-cell-left" id="datefrom-left-{{i}}" contenteditable>{{ele.dateFrom|date :'MM/dd/yyyy'}}</td>
-                <td class="text-center table-cell-left" id="dateto-left-{{i}}" contenteditable>{{ele.dateTo|date :'MM/dd/yyyy'}}</td>
-                <td class="text-center table-cell-left" id="capacity-left-{{i}}" contenteditable>{{ele.capacity}}</td>
+                <td class="text-center table-cell-left" id="name-left-{{i}}" contenteditable><input type="text"  [(ngModel)]="ele.nameEmpolyee"></td>
+                <td class="text-center table-cell-left" id="datefrom-left-{{i}}" contenteditable><input [valueAsDate]="ele.dateFromShow" (change)="updateDateFrom($event,i)" type="date" id="date" /></td>
+                <td class="text-center table-cell-left" id="dateto-left-{{i}}" contenteditable><input [valueAsDate]="ele.dateToShow" (change)="updateDateTo($event,i)" type="date" id="date" /></td>
+                <td class="text-center table-cell-left" id="capacity-left-{{i}}" contenteditable><input type="text"  [(ngModel)]="ele.capacity" ></td>
          
               </tr>
               

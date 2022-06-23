@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Ipservice } from './ip.service';
+import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +14,7 @@ export class AppComponent implements OnInit {
   // constructor(private ipService:Ipservice){
     
     @ViewChild('cell-month-title-0') elementView: ElementRef | undefined;
-
+    
     constructor() { }
   
     ngAfterViewInit() {

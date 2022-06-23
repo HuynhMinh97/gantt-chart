@@ -9,6 +9,9 @@ export interface TableUser{
   dateTo:number;
   dateLeft?:number;
   capacity:number;
+  dateFromShow?:object;
+  dateToShow?:object;
+
 };
 
 const USER_DATA:TableUser[]=[
@@ -49,24 +52,46 @@ export class GanttChartComponent implements OnInit{
     this.getMonth(this.dataSource[date].dateFrom.toString())
     }
   }
-  
+  changeDateFrom(value:any,index:number){
+    this.dataSource[index].dateFrom=new Date(value).getTime();
+    this.dataSource[index].dateLeft=(this.dataSource[index].dateTo-new Date(value).getTime())/(1000 * 3600 * 24);
+    console.log(this.dataSource[index].dateLeft)
+
+  }
+  changeDateTo(value:any,index:number){
+    this.dataSource[index].dateTo=new Date(value).getTime();
+    this.dataSource[index].dateLeft=(new Date(value).getTime()-this.dataSource[index].dateFrom)/(1000 * 3600 * 24);
+  }
+  updateDateFrom(event: any,index:number) {
+    this.dataSource[index].dateFromShow = new Date(event.target.valueAsDate.getTime());
+    this.dataSource[index].dateFrom=event.target.valueAsDate.getTime();
+    this.dataSource[index].dateLeft=(this.dataSource[index].dateTo-this.dataSource[index].dateFrom)/(1000 * 3600 * 24);
+
+  }
+  updateDateTo(event: any,index:number) {
+    this.dataSource[index].dateToShow = new Date(event.target.valueAsDate.getTime());
+    this.dataSource[index].dateTo=event.target.valueAsDate.getTime();
+    this.dataSource[index].dateLeft=(this.dataSource[index].dateTo-this.dataSource[index].dateFrom)/(1000 * 3600 * 24);
+  }
 
   rs:TableUser[]=[];
   displayedColumns: string[] = ['name project', 'name empolyee', 'date from', 'date to','capacity'];
   test=USER_DATA.map(ele=>{
     let dateObjFrom=new Date(ele.dateFrom);
     let dateObjTo=new Date(ele.dateTo);
-    // let newdateFrom = dateObjFrom.getUTCMonth()+"/" + dateObjFrom.getUTCDate()+"/"+dateObjFrom.getUTCFullYear(); 
-    // let newdateTo = dateObjTo.getUTCMonth()+"/" + dateObjTo.getUTCDate()+"/"+dateObjTo.getUTCFullYear();
+    ele.dateFromShow = new Date(ele.dateFrom); 
+    console.log(typeof ele.dateFromShow)
+    ele.dateToShow = new Date(ele.dateTo);
     // ele.dateFrom=newdateFrom;
     // ele.dateTo=newdateTo;
+    
     ele.dateLeft=(ele.dateTo-ele.dateFrom)/(1000 * 3600 * 24)
     return ele
   })
   dataSource = USER_DATA;
 
   months=["January","February","March","April","May","June","July","August","September","October","November","December"];
-  attrEle=document.getElementsByClassName('cell-month-title-0')
+  // attrEle=document.getElementsByClassName('cell-month-title-0')
   
   // log(param:any) {
   //   // document.querySelector(".table-work-0")?.setAttribute('style','background-color:red;width:50px');
@@ -76,7 +101,7 @@ export class GanttChartComponent implements OnInit{
   //   console.log(this.getNumberOfDays(2022,1));
   //   console.log(12)
   // }
-  dateText:any;
+  // dateText:any;
   handleChange(param:any){
     console.log(typeof param.target.value);
   }
@@ -94,7 +119,7 @@ export class GanttChartComponent implements OnInit{
 //   }
 // 
 
-check:any;
+// check:any;
 ngDoCheck(){
   for(var index in this.dataSource)
   {
@@ -154,17 +179,21 @@ onClick(event:any) {
   console.log(event.target.innerText,event);
 }
 
-isShowPlus:boolean=false;
+// isShowPlus:boolean=false;
 handleHover(value:any){
   value.target.setAttribute('style','cursor: pointer;background-color:rgba(108,117,125,0.3)');
-  value.target.children[0].children[0].setAttribute('style','display:block')
+  let ele=value.target.children[0];
+  let x=ele.offsetLeft+ele.offsetWidth;
+  let y=ele.page+ele.offsetHeight;
+  console.log(value.target.children[0].target);
+  // value.target.children[0].children[0].setAttribute('style',`display:block;position:fixed; left:${x-8}px;top:${y}px`)
 
-  this.isShowPlus=true;
+  // this.isShowPlus=true;
 }
 handleHoverOut(value:any){
   value.target.setAttribute('style','background-color:none');
-  value.target.children[0].children[0].setAttribute('style','display:none')
-  this.isShowPlus=false;
+  // value.target.children[0].children[0].setAttribute('style','display:none')
+  // this.isShowPlus=false;
   console.log(value)
 }
 ////test

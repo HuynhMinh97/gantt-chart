@@ -16,6 +16,7 @@ import { RoundPipe } from './round.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { DateInputConverter } from './date-input-converter.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     CardComponent,
     LearnPipeComponent,
     RoundPipe,
+    DateInputConverter
   ],
   imports: [
     BrowserModule,

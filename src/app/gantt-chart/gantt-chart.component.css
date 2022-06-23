@@ -2,6 +2,7 @@
     --primary-height-title-table-left:1 rem;
     --color-word:#49BBEE;
 }
+
 *{
     box-sizing: border-box;
     padding: 0;
@@ -56,12 +57,16 @@
   
   .table-title-left{
     line-height: 1;
-   height: 50px;
+   max-height: 50px;
   }
-  
+  .table input {
+    width: 90%;
+    height: 90%;
+  }
   .table-cell-left{
     line-height: 1;
    height: 50px;
+   min-width: 150px;
 
   }
 
@@ -132,9 +137,10 @@
     color: #fff;
     white-space:nowrap;
 }
-fa-icon{
-    position: fixed;
-}
+/* fa-icon{
+    display: block;
+    
+} */
 /* test */
 .gantt{
     width: 100%; 
